@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard - Super Fintech</title>
+</head>
+<body>
+
+<h2>Wallet Dashboard</h2>
+
+<button onclick="checkBalance()">Check Balance</button>
+<p id="bal"></p>
+
+<h3>Travel Booking</h3>
+<input id="travelAmt" placeholder="Travel Amount">
+<button onclick="pay('Travel')">Book Travel</button>
+
+<h3>Utility Bill Payment</h3>
+<input id="billAmt" placeholder="Bill Amount">
+<button onclick="pay('Utility')">Pay Bill</button>
+
+<h3>Send Money</h3>
+<input id="sendAmt" placeholder="Amount">
+<button onclick="pay('Send Money')">Send</button>
+
+<h3>Transaction History</h3>
+<button onclick="history()">Show History</button>
+<ul id="list"></ul>
+
+<script>
+let balance = 5000;
+let transactions = [];
+
+function checkBalance(){
+  bal.innerText = "Balance: ₹" + balance;
+}
+
+function pay(type){
+  let amount;
+
+  if(type === "Travel") amount = Number(travelAmt.value);
+  if(type === "Utility") amount = Number(billAmt.value);
+  if(type === "Send Money") amount = Number(sendAmt.value);
+
+  if(balance >= amount){
+    balance -= amount;
+    transactions.push({type, amount});
+    alert("Payment Successful");
+  } else {
+    alert("Insufficient Balance");
+  }
+}
+
+function history(){
+  list.innerHTML = "";
+  transactions.forEach(t => {
+    list.innerHTML += `<li>${t.type} - ₹${t.amount}</li>`;
+  });
+}
+</script>
+
+</body>
+</html>
